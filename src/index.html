@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+			li{margin-bottom: 10px};
+		</style>
+	</head>
+	
+	<body style="font-family: Arial">
+		<div class="container">
+			<h1>Browser compability and responsive class</h1>
+			<p>By Thien Nguyen &lt;nguyenphongthien@gmail.com&gt;</p>
+			<nomock>
+			<ul>
+				<li>
+					<h2>Step 1: Include responsive.js to file script</h2>
+					<p>copy this code below and add to the bottom of the "body" element: </p>
+					<strong>&lt;script type="text/javascript" src="scripts/responsive.js" data-xs="339" data-sm="767" data-md="1023" data-lg="1279" data-xl="1399" data-responsive="1"&gt;&lt;/script&gt;</strong>
+					<p>Replace data-xs, data-sm... with the correct break point</p>
+					<p>Change data-responsive to 0 if you don't want to add responsive class to body tag (xs, lg...)</p>
+					<p>Inspect and see the class has been added to the body tag</p>
+					<p><i>For more additional features, we could add modernizr.js, but not really neccesary at the moment</i></p>
+				</li>
+				<li>
+					<h2>Step 2: Use it:</h2>
+					<ul style="list-style-type: none">
+						<li>
+							<h3>For CSS Usage</h3>
+							<ul>
+								<li>Class will be added to the body tag</li>
+								<li>so for example: if you want to add specific attribute to Chrome only (to avoid affect to other browser)</li>
+								<li>in css, add ".cr " before the class you want to add attribute</li>
+								<li><strong>(eg: .cr .class-1 {margin-top: 10px;}</strong> - so class-1 will have margin-top attribute is 10px only on Chrome - not affect to Firefox, IE, Opera...)</li>
+								<li>in SASS, add "&nbsp;&nbsp;&nbsp;&nbsp;.cr &amp;" on the line after the class you want to fix</li>
+								<li>(eg:<br>
+									<strong>.class-1<br>
+									&nbsp;&nbsp;&nbsp;&nbsp;.cr &amp;<br>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin-top: 10px</strong><br>
+								)</li>
+							</ul>
+						</li>
+						<li>
+							<h3>For JS Usage</h3>
+							<p>We can use below global variable to detect browser, device, OS and screen size, they are:</p>
+							<ul>
+								<li><strong>window.$screen_xs</strong> Max size for xxs</li>
+								<li><strong>window.$screen_sm</strong> Max size for xs</li>
+								<li><strong>window.$screen_md</strong> Max size for sm</li>
+								<li><strong>window.$screen_lg</strong> Max size for md</li>
+								<li><strong>window.$screen_xl</strong> Max size for xl</li>
+								<li><strong>window.$xxs</strong> Screen size xs (value: true/false)</li>
+								<li><strong>window.$xs</strong> Screen size xs (value: true/false)</li>
+								<li><strong>window.$md</strong> Screen size md (value: true/false)</li>
+								<li><strong>window.$sm</strong> Screen size sm (value: true/false)</li>
+								<li><strong>window.$lg</strong> Screen size lg (value: true/false)</li>
+								<li><strong>window.$xl</strong> Screen size xl (value: true/false)</li>
+								<li><strong>window.$cr</strong> Browser is Chrome (value: true/false)</li>
+								<li><strong>window.$ff</strong> Browser is Firefox (value: true/false)</li>
+								<li><strong>window.$sf</strong> Browser is Safari (value: true/false)</li>
+								<li><strong>window.$op</strong> Browser is Opera (value: true/false)</li>
+								<li><strong>window.$ie</strong> Browser is IE (value: true/false)</li>
+								<li><strong>window.$ie7</strong> Browser is IE7 (value: true/false)</li>
+								<li><strong>window.$ie8</strong> Browser is IE8 (value: true/false)</li>
+								<li><strong>window.$ie9</strong> Browser is IE9 (value: true/false)</li>
+								<li><strong>window.$ie10</strong> Browser is IE10 (value: true/false)</li>
+								<li><strong>window.$ie11</strong> Browser is IE11 (value: true/false)</li>
+								<li><strong>window.$mobile</strong> Device is mobile or ipad (value: true/false)</li>
+								<li><strong>window.$desktop</strong> Device is desktop (value: true/false)</li>
+								<li><strong>window.$size</strong> Width of window (value: xxs, xs, sm, md, lg, xl)</li>
+								<li><strong>window.$ipad</strong> Device is ipad (value: true/false)</li>
+								<li><strong>window.$window</strong> OS is Window</li>
+								<li><strong>window.$mac</strong> OS is MACOS</li>
+								<li><strong>window.$linux</strong> OS is Linux</li>
+								<li><strong>window.$unix</strong> OS is Unix</li>
+								<li><strong>window.$browser</strong> Browser (value: cr, ff, sf...)</li>
+								<li><strong>window.$os</strong> OS of device (value: win, mac, lin, unix)</li>
+								<li>
+									<strong>window.$click</strong> Window screen can be touched or clicked (value: touchstart, click)<br>
+									with window.$click you can use it like below<br>
+									<strong>$("#id").on(window.$click, function(){...})</strong><br>
+									so if you are using touch device, it will capture touch event, and click event if you're not using a touch device
+								</li>
+							</ul>
+
+							<p>Added event: we can listen to this event when the recalculate function is invoked</p>
+							<p>
+								<strong>document.addEventListener("sizeChanged", function () {</strong><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;// ... do something ...<br>
+								<strong>}, false);</strong>
+							</p>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<h2>Browser support:</h2>
+					<p>List class will be added on each browser</p>
+					<ul>
+						<li>
+							<strong>Chrome</strong>: cr
+						</li>
+						<li>
+							<strong>Firefox</strong>: ff
+						</li>
+						<li>
+							<strong>Safari</strong>: sf
+						</li>
+						<li>
+							<strong>Opera</strong>: op
+						</li>
+						<li>
+							<strong>IE</strong>: ie
+							<p>
+							For each ie version:
+							<ul>
+								<li><strong>IE 7</strong>: ie7</li>
+								<li><strong>IE 8</strong>: ie8</li>
+								<li><strong>IE 9</strong>: ie9</li>
+								<li><strong>IE 10</strong>: ie10</li>
+								<li><strong>IE 11</strong>: ie11</li>
+							</ul>
+							</p>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<h2>Device support:</h2>
+					<ul>
+						<li>
+							<strong>Desktop</strong>: desktop
+						</li>
+						<li>
+							<strong>Mobile</strong>: mobile
+						</li>
+						<li>
+							<strong>Ipad</strong>: ipad
+						</li>
+					</ul>
+				</li>
+				<li>
+					<h2>OS support:</h2>
+					<ul>
+						<li>
+							<strong>Window</strong>: win
+						</li>
+						<li>
+							<strong>MacOS</strong>: mac
+						</li>
+						<li>
+							<strong>Unix</strong>: unix
+						</li>
+						<li>
+							<strong>Linux</strong>: lin
+						</li>
+						<li>
+							<strong>Android</strong>: android
+						</li>
+						<li>
+							<strong>IOS</strong>: ios
+						</li>
+						<li>
+							<strong>Blackberry</strong>: blackberry
+						</li>
+						<li>
+							<strong>Winmobile</strong>: iemobile
+						</li>
+					</ul>
+				</li>
+			</ul>
+			</nomock>
+		</div>
+		<script type="text/javascript" src="scripts/responsive.js" data-xs="339" data-sm="767" data-md="1023" data-lg="1279" data-xl="1399"></script>
+	</body>
+</html>

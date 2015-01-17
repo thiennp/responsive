@@ -1,0 +1,21 @@
+{
+	"name": "Mock data for html + css",
+	"version": "0.0.1",
+	"authors": [
+		"Thien Nguyen <nguyenphongthien@gmail.com>"
+	],
+	"description": "simply add responsive.js to front end file then use",
+	"main": "index.html",
+	"keywords": [
+		"responsive",
+		"data"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	]
+}
