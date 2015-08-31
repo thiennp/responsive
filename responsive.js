@@ -172,6 +172,14 @@
     }
   };
 
+  window.topPos = function() {
+    if (window.pageYOffset !== void 0) {
+      return window.pageYOffset;
+    } else {
+      return (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    }
+  };
+
   if (window.$responsive > 0) {
     window.calculateSize = function(size) {
       var event;
@@ -225,22 +233,28 @@
         window.$size = "xxs";
         window.$size_str = "xs xxs";
       }
-      document.getElementsByTagName("body")[0].className = window.$browser + window.$os + window.$ipad + ' ' + window.$size_str;
+      document.getElementsByTagName("body")[0].className = window.$browser + window.$os + window.$ipad + ' ' + window.$size_str + ' top-' + window.wTop;
       event = new CustomEvent("sizeChanged", {
-        size: window.wWidth
+        'bubbles': true,
+        'cancelable': true,
+        'detail': {
+          'size': window.wWidth
+        }
       });
       return document.dispatchEvent(event);
     };
     setInterval(function() {
-      var i, next_wWidth;
+      var i, next_wTop, next_wWidth;
       next_wWidth = window.innerWidth;
-      if (next_wWidth !== window.wWidth) {
+      next_wTop = topPos();
+      if (!((next_wWidth === window.wWidth) && (next_wTop === window.wTop))) {
         window.$onresize++;
         i = Math.floor(Math.random() * 100);
         setTimeout(function() {
           window.$onresize--;
           if (window.$onresize === 0) {
             window.wWidth = next_wWidth;
+            window.wTop = next_wTop;
             calculateSize(next_wWidth);
           }
         }, 200);

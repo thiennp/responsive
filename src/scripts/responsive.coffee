@@ -127,6 +127,9 @@ window.detectOS = ->
 window.detectIPad = ->
 	if navigator.userAgent.match(/iPad/i) != null then window.$ipad = " ipad"
 
+window.topPos = ->
+	if (window.pageYOffset isnt undefined) then window.pageYOffset else (document.documentElement || document.body.parentNode || document.body).scrollTop
+
 if window.$responsive > 0
 	window.calculateSize = (size)->
 		if window.wWidth >= $screen_xl
@@ -179,7 +182,7 @@ if window.$responsive > 0
 			window.$size = "xxs"
 			window.$size_str = "xs xxs"
 
-		document.getElementsByTagName("body")[0].className = window.$browser+window.$os+window.$ipad+' '+window.$size_str
+		document.getElementsByTagName("body")[0].className = window.$browser+window.$os+window.$ipad+' '+window.$size_str+' top-'+window.wTop
 
 		event = new CustomEvent("sizeChanged",
 			'bubbles': true,
@@ -191,13 +194,15 @@ if window.$responsive > 0
 
 	setInterval ->
 		next_wWidth = window.innerWidth
-		unless next_wWidth is window.wWidth
+		next_wTop = topPos()
+		unless (next_wWidth is window.wWidth) and (next_wTop is window.wTop)
 			window.$onresize++
 			i = Math.floor(Math.random() * 100)
 			setTimeout ->
 				window.$onresize--
 				if window.$onresize is 0
 					window.wWidth = next_wWidth
+					window.wTop = next_wTop
 					calculateSize next_wWidth
 				return
 			, 200

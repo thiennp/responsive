@@ -1,12 +1,12 @@
 _livereload_port = 35729
-_base_directory = 'app'
+_base_directory = 'dist'
 _port = 9004
-_browser = 'Chrome'
+_browser = 'FirefoxDeveloperEdition'
 _hostname = '0.0.0.0'
-_hostpath = "http://localhost"
-_app = "app/"
-_src = "src/"
-_tmp = "tmp/"
+_hostpath = 'http://localhost'
+_app = 'dist/'
+_src = 'src/'
+_tmp = 'tmp/'
 
 lrSnippet = require 'connect-livereload'
 	_port: _livereload_port
@@ -48,27 +48,32 @@ module.exports = (grunt) ->
 				cwd: _tmp
 				src: ['responsive.js']
 				dest: _app+'scripts'
+			build:
+				expand: true
+				cwd: _tmp
+				src: ['responsive.js']
+				dest: './'
 
 		watch:
 			cshtml:
-				files: _src+"**/*.html"
-				tasks: ["copy:index"]
+				files: _src+'**/*.html'
+				tasks: ['copy:index']
 				options:
 					spawn: false
 					interupt: true
 					livereload: 35729
 
 			coffee:
-				files: _src+"**/*.coffee"
-				tasks: ["coffee","concat","copy:app"]
+				files: _src+'**/*.coffee'
+				tasks: ['coffee','concat','copy:app','copy:build']
 				options:
 					spawn: false
 					interupt: true
 					livereload: 35729
 
 			vendors:
-				files: ["bower_components/**/*.*"]
-				tasks: ["copy:vendors"]
+				files: ['bower_components/**/*.*']
+				tasks: ['copy:vendors']
 				options:
 					spawn: false
 					interupt: true
